@@ -1,31 +1,30 @@
+import "dotenv/config.js";
 import { Pinecone } from "@pinecone-database/pinecone";
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import dotenv from "dotenv";
-dotenv.config();
 
-const pinecone = new Pinecone({ apiKey: process.env.PINECONE_API_KEY });
+// Pinecone client
+const pinecone = new Pinecone({
+  apiKey: process.env.PINECONE_API_KEY,
+});
+
+// Your existing index
 const index = pinecone.index(process.env.PINECONE_INDEX);
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-async function getQueryEmbedding(query) {
-  const model = genAI.getGenerativeModel({ model: "embedding-001" });
-  const res = await model.embedContent(query);
-  return res.embedding.values;
-}
-
-export async function retrieveRelevantChunks(query, topK = 5) {
-  const queryEmbedding = await getQueryEmbedding(query);
-
-  const results = await index.query({
+export async function retrieveRelevantChunks(queryEmbedding, topK = 8) {
+  const queryResponse = await index.query({
     vector: queryEmbedding,
     topK,
-    includeMetadata: true
+    includeValues: false,
+    includeMetadata: true,
   });
 
-  return results.matches.map(match => ({
-    score: match.score,
-    text: match.metadata.text,
-    source: match.metadata.source
+  // Filter out very low scores (<0.7) to avoid noise
+  const filteredMatches = queryResponse.matches.filter(m => m.score > 0.7);
+
+  // Extract clean text for Gemini
+  const context = filteredMatches.map(m => ({
+    text: m.metadata?.text || m.metadata?.chunk || m.metadata?.raw || "No text",
+    source: m.metadata?.source || "Unknown"
   }));
+
+  return context;
 }
