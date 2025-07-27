@@ -33,13 +33,18 @@ export async function embedAndStore(documents, batchSize = 10) {
       vectors.push({
         id: doc.id,
         values: embedding,
-        metadata: doc.metadata,
+        metadata: {
+          text: doc.text,              // store the actual chunk text
+          source: doc.metadata.source, // keep the source URL
+          title: doc.metadata.title,   // optional: doc title if available
+          timestamp: doc.metadata.timestamp // optional: timestamp
+        },
       });
     }
 
     await index.upsert(vectors);
     console.log(
-      `✅ Uploaded ${vectors.length} chunks (${i + vectors.length}/${documents.length})`
+      `Uploaded ${vectors.length} chunks (${i + vectors.length}/${documents.length})`
     );
   }
 }
