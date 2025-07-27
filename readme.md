@@ -25,10 +25,10 @@ The agent provides **fast, accurate, and friendly responses** to user inquiries 
 - **Scalable Data Ingestion**  
   A robust data pipeline to scrape, chunk, embed, and store Aven's support documentation in a **Pinecone vector database**.  
 
-- **Safety Guardrails (Bonus)**  
+- **Safety Guardrails**  
   The agent is designed to detect and appropriately handle sensitive queries, including requests for personal data, legal/financial advice, and toxic language.  
 
-- **Tool Calling for Scheduling (Bonus)**  
+- **Tool Calling for Scheduling**  
   The agent can understand intents to schedule meetings and call an external API to book a time, confirming the details with the user.
 
 ---
