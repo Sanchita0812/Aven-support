@@ -19,7 +19,7 @@ export async function generateAnswer(userQuery, retrievedChunks) {
     })
     .join("\n\n");
 
-  // Strong system prompt
+  
   const systemPrompt = `You are Aven's AI support agent. 
 You ONLY answer based on the provided context. 
 If the answer is not explicitly in the context, say: 
