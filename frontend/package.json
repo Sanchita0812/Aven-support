@@ -16,7 +16,8 @@
     "zustand": "^4.5.2",
     "axios": "^1.7.2",
     "clsx": "^2.1.0",
-    "vapi-sdk": "^1.0.0", 
+    "@vapi-ai/web": "^2.3.8",
+    "react-speech-recognition": "^3.10.0",
     "tailwindcss": "^4.0.0",
     "postcss": "^8.4.41",
     "autoprefixer": "^10.4.20"
