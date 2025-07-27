@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "AI Customer Support Agent for Aven",
   "main": "index.js",
-  "type": "module", 
+  "type": "module",
   "scripts": {
     "ingest": "node backend/ingestion/ingest.js",
     "test": "echo \"No tests yet\""
@@ -21,6 +21,7 @@
     "@google/generative-ai": "^0.24.1",
     "@pinecone-database/pinecone": "^6.1.2",
     "dotenv": "^17.2.1",
-    "exa-js": "^1.8.23"
+    "exa-js": "^1.8.23",
+    "uuid": "^11.1.0"
   }
 }
