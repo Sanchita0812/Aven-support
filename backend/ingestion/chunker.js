@@ -1,37 +1,28 @@
-export function chunkText(text, chunkSize = 300) {
-    const sentences = text.split(". ");
-    let chunks = [];
-    let currentChunk = "";
-  
-    for (let sentence of sentences) {
-      if ((currentChunk + sentence).split(" ").length > chunkSize) {
-        chunks.push(currentChunk.trim());
-        currentChunk = sentence + ". ";
-      } else {
-        currentChunk += sentence + ". ";
-      }
-    }
-    if (currentChunk.trim()) chunks.push(currentChunk.trim());
-    return chunks;
-  }
-  
-  export function prepareDocuments(scrapedArticles) {
-    let documents = [];
-    scrapedArticles.forEach(article => {
-      const chunks = chunkText(article.content, 300);
-      chunks.forEach((chunk, idx) => {
-        documents.push({
-          id: `${article.url}#${idx}`,
-          text: chunk,
-          metadata: {
-            title: article.title,
-            source: article.url,
-            chunk: idx,
-            timestamp: new Date().toISOString()
-          }
-        });
+import { v4 as uuidv4 } from "uuid";
+
+export function prepareDocuments(scrapedPages) {
+  const docs = [];
+
+  scrapedPages.forEach(page => {
+    const { url, content } = page;
+
+    // Split by FAQ/question markers or bullet points
+    const faqChunks = content
+      .split(/\n-\s|\n###|\n\*\*/g) // split by new FAQ/bullet markers
+      .map(c => c.trim())
+      .filter(c => c.length > 50); // ignore tiny lines
+
+    faqChunks.forEach(chunk => {
+      docs.push({
+        id: uuidv4(),
+        text: chunk,
+        metadata: {
+          source: url,
+          timestamp: new Date().toISOString()
+        }
       });
     });
-    return documents;
-  }
-  
+  });
+
+  return docs;
+}
