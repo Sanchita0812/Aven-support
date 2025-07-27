@@ -57,100 +57,78 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col h-screen max-w-4xl mx-auto p-4">
+    <div className="min-h-screen bg-black text-white flex flex-col">
       {/* Header */}
-      <div className="text-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Aven Support Agent</h1>
-        <p className="text-gray-600">Ask questions about Aven's services via text or voice</p>
-      </div>
-
-      {/* Voice Chat Component */}
-      <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+      <div className="flex justify-between items-center p-8">
+        <h1 className="text-4xl font-light text-gray-300">Aven</h1>
         <VapiChat onMessage={handleVapiMessage} />
       </div>
 
-      {/* Chat window */}
-      <div className="flex-1 overflow-y-auto space-y-4 mb-4 p-4 bg-white rounded-lg shadow-sm border">
-        {messages.length === 0 && (
-          <div className="text-center text-gray-500 py-8">
-            <p>👋 Hi! I'm here to help with your Aven questions.</p>
-            <p className="text-sm mt-2">You can type your question below or use voice chat above.</p>
-          </div>
-        )}
-        
-        {messages.map((m, idx) => (
-          <div
-            key={idx}
-            className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
-          >
-            <div className="max-w-xs lg:max-w-md">
-              {/* Message bubble */}
-              <div
-                className={`inline-block p-3 rounded-lg ${
-                  m.role === "user"
-                    ? "bg-blue-500 text-white rounded-br-sm"
-                    : "bg-gray-200 text-gray-800 rounded-bl-sm"
-                }`}
-              >
-                {m.text}
+      {/* Main Chat Container */}
+      <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full px-8">
+        {/* Chat Area */}
+        <div className="flex-1 border border-gray-700 rounded-2xl p-8 mb-6 bg-gray-900/20">
+          <h2 className="text-2xl font-light mb-8 text-white">AI Support Agent</h2>
+          
+          {/* Messages */}
+          <div className="space-y-6">
+            {messages.length === 0 && (
+              <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
+                <p className="text-white text-lg">Hi. I'm Aven's AI support agent.</p>
               </div>
-
-              {/* Sources */}
-              {m.sources && m.sources.length > 0 && (
-                <div className="text-xs text-blue-600 mt-2 px-2">
-                  <details className="cursor-pointer">
-                    <summary className="font-medium">Sources ({m.sources.length})</summary>
-                    <div className="mt-1 space-y-1">
-                      {m.sources.map((s: string, i: number) => (
-                        <div key={i}>
-                          <a
-                            href={s}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="underline hover:text-blue-800 break-all"
-                          >
-                            {s}
-                          </a>
-                        </div>
-                      ))}
+            )}
+            
+            {messages.map((m, idx) => (
+              <div key={idx}>
+                {m.role === "user" ? (
+                  <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
+                    <p className="text-white text-lg">{m.text}</p>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 mb-3">
+                      <p className="text-white text-lg leading-relaxed">{m.text}</p>
                     </div>
-                  </details>
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
-
-        {isLoading && (
-          <div className="flex justify-start">
-            <div className="bg-gray-200 text-gray-800 p-3 rounded-lg rounded-bl-sm">
-              <div className="flex items-center gap-2">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600"></div>
-                Thinking...
+                    {m.sources && m.sources.length > 0 && (
+                      <div className="text-blue-400 text-sm">
+                        Sources: {m.sources.length}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
-            </div>
+            ))}
+
+            {isLoading && (
+              <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
+                <div className="flex items-center gap-3">
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  <p className="text-white text-lg">Thinking...</p>
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </div>
 
-      {/* Text Input */}
-      <div className="flex gap-2">
-        <input
-          className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && !isLoading && sendMessage()}
-          placeholder="Type your question about Aven..."
-          disabled={isLoading}
-        />
+        {/* Input Area */}
+        <div className="flex gap-4 pb-8">
+          <input
+            className="flex-1 bg-gray-800/50 border border-gray-700 rounded-2xl px-6 py-4 text-white text-lg placeholder-gray-400 focus:outline-none focus:border-gray-500"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={(e) => e.key === "Enter" && !isLoading && sendMessage()}
+            placeholder="Type your question about Aven..."
+            disabled={isLoading}
+          />
 
-        <button
-          className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          onClick={() => sendMessage()}
-          disabled={isLoading || !input.trim()}
-        >
-          Send
-        </button>
+          <button
+            className="bg-gray-700 hover:bg-gray-600 border border-gray-600 rounded-2xl px-8 py-4 text-white text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            onClick={() => sendMessage()}
+            disabled={isLoading || !input.trim()}
+          >
+            Send
+          </button>
+        </div>
       </div>
     </div>
   );
