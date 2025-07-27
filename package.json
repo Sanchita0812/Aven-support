@@ -26,5 +26,8 @@
     "exa-js": "^1.8.23",
     "uuid": "^11.1.0",
     "zustand": "^5.0.6"
+  },
+  "devDependencies": {
+    "@types/react-speech-recognition": "^3.9.6"
   }
 }
