@@ -8,14 +8,7 @@ The agent provides **fast, accurate, and friendly responses** to user inquiries 
 
 ---
 
-## 🚀 Live Demo
-
-A link to the live project demo can be found here:  
-👉 **[Project Demo on YouTube](#)**
-
----
-
-## ✨ Features
+## Features
 
 - **Conversational AI Chat**  
   A dynamic web interface where users can interact with the AI agent via text or voice.  
@@ -40,7 +33,7 @@ A link to the live project demo can be found here:
 
 ---
 
-## 🏗 Architecture
+## Architecture
 
 The project is built on a modern **RAG architecture** that separates the **data pipeline**, the **AI backend**, and the **user-facing frontend**.
 
@@ -76,7 +69,7 @@ graph TD
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 * **Frontend**: Next.js, React, Tailwind CSS
 * **Backend**: Node.js / Next.js API Routes
@@ -87,11 +80,11 @@ graph TD
 
 ---
 
-## ⚙️ Getting Started
+## Getting Started
 
 Follow these steps to set up and run the project locally.
 
-### ✅ Prerequisites
+### Prerequisites
 
 * Node.js (**v18 or later**)
 * npm, yarn, or pnpm
@@ -103,7 +96,7 @@ Follow these steps to set up and run the project locally.
 
 ---
 
-### 1️⃣ Clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Sanchita0812/Aven-support.git
@@ -112,7 +105,7 @@ cd Aven-support
 
 ---
 
-### 2️⃣ Install Dependencies
+### 2️. Install Dependencies
 
 ```bash
 npm install
@@ -120,7 +113,7 @@ npm install
 
 ---
 
-### 3️⃣ Set Up Environment Variables
+### 3️. Set Up Environment Variables
 
 Create a **.env.local** file in the root of the project. Fill in your API keys as shown below:
 
@@ -141,7 +134,7 @@ VAPI_API_KEY="your-vapi-api-key"
 
 ---
 
-### 4️⃣ Run the Data Ingestion Pipeline
+### 4️. Run the Data Ingestion Pipeline
 
 Before starting the app, populate your Pinecone database with Aven's support documentation.
 
@@ -149,11 +142,11 @@ Before starting the app, populate your Pinecone database with Aven's support doc
 node backend/ingestion/ingest.js
 ```
 
-> ✅ **Note:** This only needs to be run once or whenever the source documentation changes.
+> **Note:** This only needs to be run once or whenever the source documentation changes.
 
 ---
 
-### 5️⃣ Start the Application
+### 5️. Start the Application
 
 ```bash
 npm run dev
@@ -163,7 +156,7 @@ Then open **[http://localhost:3000](http://localhost:3000)** in your browser.
 
 ---
 
-## ✅ Evaluation
+## Evaluation
 
 To ensure the agent's quality, an evaluation set of \~50 realistic user questions was created.
 The agent's responses were scored across three key metrics:
@@ -177,13 +170,13 @@ The evaluation files can be found in the **/evaluation** directory.
 
 ---
 
-### 📜 License
+### License
 
 This project is licensed under the **MIT License**.
 
 ---
 
-**👩‍💻 Developed by [Sanchita Kiran](https://github.com/Sanchita0812)**
+**Developed by [Sanchita Kiran](https://github.com/Sanchita0812)**
 
 
 
