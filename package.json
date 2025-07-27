@@ -1,14 +1,22 @@
 {
   "name": "aven-support",
   "version": "1.0.0",
+  "description": "AI Customer Support Agent for Aven",
   "main": "index.js",
+  "type": "module", 
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "ingest": "node backend/ingestion/ingest.js",
+    "test": "echo \"No tests yet\""
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "AI",
+    "customer-support",
+    "RAG",
+    "pinecone",
+    "gemini"
+  ],
+  "author": "Sanchita Kiran",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@pinecone-database/pinecone": "^6.1.2",
